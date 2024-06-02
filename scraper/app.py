@@ -93,7 +93,7 @@ def scrape():
             if not validate_url(url):
                 raise ValueError(f"wrong link - {url}")
         except ValueError as e:
-            print(e)    
+            results[url] = {'error': str(e)}
 
     for url in urls:
         browser = browser_setup()

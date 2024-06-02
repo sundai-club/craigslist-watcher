@@ -62,9 +62,26 @@ def translate_html_elements(timestamp: str, browser):
     return listings
 
 
+def validate_url(url):
+    # check if acceptable search query for craiglist (else the algorithm runs forever)
+    pattern = r'^https://\w+\.craigslist\.org/search/.*$'
+
+
+    passed = True 
+    if not re.match(pattern, url):
+        passed = False 
+    if 'query' not in url:
+        print(f"Wrong url. The url must include 'query' parameter")
+        passed = False 
+
+    return passed 
+
+
+
 def scrape(urls, hour_limit, minute_limit):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     results = {}
+    
 
     for url in urls:
         browser = browser_setup()
