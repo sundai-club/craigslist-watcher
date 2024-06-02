@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from scraper import scrape
 
 app = Flask(__name__)
 
@@ -23,11 +24,15 @@ def add_item():
 # Endpoint to trigger search (TBD logic)
 @app.route('/trigger_search', methods=['GET'])
 def trigger_search():
+    scraping_res = []
     for url, phone_number in search_links_and_phone_numbers:
         print(f'url: {url}, phone_number: {phone_number}')
+        scraping_res.append(scrape([url], 6, 60))
+        print(scraping_res)
         # todo: here we can trigger the search and send the SMS
 
-    return jsonify({'message': 'Search triggered', 'search_links_and_phone_numbers': search_links_and_phone_numbers})
+    return jsonify({'message': 'Search triggered', 'scraping_res': scraping_res})
+    # return jsonify({'message': 'Search triggered', 'search_links_and_phone_numbers': search_links_and_phone_numbers})
 
 
 # Endpoint to delete an item by phone number
