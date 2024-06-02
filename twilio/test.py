@@ -3,10 +3,10 @@ from dotenv import load_dotenv, find_dotenv
 from twilio.rest import Client
 
 dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
 
 TWILIO_TOKEN = os.environ.get("TWILIO_TOKEN")
 TWILIO_SID = os.environ.get("TWILIO_SID")
-
 
 account_sid = TWILIO_SID
 auth_token = TWILIO_TOKEN
