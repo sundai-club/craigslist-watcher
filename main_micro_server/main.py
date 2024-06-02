@@ -64,8 +64,10 @@ def trigger_search():
 
         new_items = []
         for key in curr_res:
-            for item in curr_res[key]:
+            # todo: twillo restricts1600 character limit, so we need to limit the number of items to 4
+            for item in curr_res[key][:4]:
                 new_items.append(f'title: {item["title"]}, link: {item["link"]}')
+
         if len(new_items) > 0:
             print(f'Found new Craigslist items matching your search!\n {new_items}')
             client.messages.create(
