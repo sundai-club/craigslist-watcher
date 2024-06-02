@@ -62,16 +62,16 @@ def trigger_search():
         scraping_res.append(curr_res)
         print(f'curr res: {scraping_res}')
 
-        links = []
+        new_items = []
         for key in curr_res:
             for item in curr_res[key]:
-                links.append(item["link"])
-        if len(links) > 0:
-            print(f'Found new Craigslist items matching your search!\n {links}')
+                new_items.append(f'title: {item["title"]}, link: {item["link"]}')
+        if len(new_items) > 0:
+            print(f'Found new Craigslist items matching your search!\n {new_items}')
             client.messages.create(
                 from_='+18667401602',
-                body=f'Found new Craigslist items matching your search!\n {links}',
-                to='+18777804236'
+                body=f'Found new Craigslist items matching your search!\n\n {new_items}',
+                to=phone_number
             )
 
     return jsonify({'message': 'Search triggered', 'scraping_res': scraping_res})
