@@ -27,7 +27,7 @@ def trigger_search():
     scraping_res = []
     for url, phone_number in search_links_and_phone_numbers:
         print(f'url: {url}, phone_number: {phone_number}')
-        scraping_res.append(scrape([url], 6, 60))
+        scraping_res.append(scrape([url], 0, 60))
         print(scraping_res)
         # todo: here we can trigger the search and send the SMS
 
