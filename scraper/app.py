@@ -10,6 +10,22 @@ import re
 
 app = Flask(__name__)
 
+
+def validate_url(url):
+    # check if acceptable search query for craiglist (else the algorithm runs forever)
+    pattern = r'^https://\w+\.craigslist\.org/search/.*$'
+
+
+    passed = True 
+    if not re.match(pattern, url):
+        passed = False 
+    if 'query' not in url:
+        print(f"Wrong url. The url must include 'query' parameter")
+        passed = False 
+
+    return passed 
+
+
 def create_db_entry(link, title, cl_id, screenshot_path, time_posted, location, time_scraped):
     entry = {
         'link': link,
@@ -70,6 +86,14 @@ def scrape():
 
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     results = {}
+    
+    # validate urls first  
+    for url in urls:
+        try:
+            if not validate_url(url):
+                raise ValueError(f"wrong link - {url}")
+        except ValueError as e:
+            print(e)    
 
     for url in urls:
         browser = browser_setup()
