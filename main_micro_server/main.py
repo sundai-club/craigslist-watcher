@@ -1,6 +1,20 @@
+import os
+from dotenv import load_dotenv, find_dotenv
+from twilio.rest import Client
 from flask import Flask, request, jsonify
 from scraper import scrape
 import re
+
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+TWILIO_TOKEN = os.environ.get("TWILIO_TOKEN")
+TWILIO_SID = os.environ.get("TWILIO_SID")
+
+account_sid = TWILIO_SID
+auth_token = TWILIO_TOKEN
+client = Client(account_sid, auth_token)
+
 
 app = Flask(__name__)
 
@@ -51,21 +65,18 @@ def is_new_list_in_original(new_list, original_list):
             return True
     return False
 
-
 def validate_url(url):
     # check if acceptable search query for craiglist (else the algorithm runs forever)
     pattern = r'^https://\w+\.craigslist\.org/search/.*$'
 
-
-    passed = True 
+    passed = True
     if not re.match(pattern, url):
-        passed = False 
+        passed = False
     if 'query' not in url:
         print(f"Wrong url. The url must include 'query' parameter")
-        passed = False 
+        passed = False
 
-    return passed 
-
+    return passed
 
 
 # Endpoint to add a new item to the list
@@ -93,9 +104,23 @@ def trigger_search():
     scraping_res = []
     for url, phone_number in search_links_and_phone_numbers:
         print(f'url: {url}, phone_number: {phone_number}')
-        scraping_res.append(scrape([url], 5, 0))
-        print(scraping_res)
-        # todo: here we can trigger the search and send the SMS
+        curr_res = scrape([url], 0, 60)
+        scraping_res.append(curr_res)
+        print(f'curr res: {scraping_res}')
+
+        new_items = []
+        for key in curr_res:
+            # todo: twillo restricts1600 character limit, so we need to limit the number of items to 4
+            for item in curr_res[key][:4]:
+                new_items.append(f'title: {item["title"]}, link: {item["link"]}')
+
+        if len(new_items) > 0:
+            print(f'Found new Craigslist items matching your search!\n {new_items}')
+            client.messages.create(
+                from_='+18667401602',
+                body=f'Found new Craigslist items matching your search!\n\n {new_items}',
+                to=phone_number
+            )
 
     return jsonify({'message': 'Search triggered', 'scraping_res': scraping_res})
     # return jsonify({'message': 'Search triggered', 'search_links_and_phone_numbers': search_links_and_phone_numbers})
@@ -155,4 +180,4 @@ def get_items():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
