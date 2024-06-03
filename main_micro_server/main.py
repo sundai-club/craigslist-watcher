@@ -4,6 +4,7 @@ from twilio.rest import Client
 from flask import Flask, request, jsonify
 from scraper import scrape
 import re
+from flask_cors import CORS
 
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
@@ -17,7 +18,7 @@ client = Client(account_sid, auth_token)
 
 
 app = Flask(__name__)
-
+CORS(app)
 # List to store search_links_and_phone_numbers (Link, Phone number) tuples
 search_links_and_phone_numbers = []
 
