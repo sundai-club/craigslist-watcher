@@ -19,3 +19,6 @@ Create an account at [console.twilio.com](https://console.twilio.com/). Initiall
 Add the following to .env at the top level of the folder:
 - TWILIO_TOKEN=[your twilio api token]
 - TWILIO_SID=[your twilio account id]
+
+## Still to do
+- Add an endpoint for Twilio, so when a user unsubscribes from Twilio they're also removed from our DB
