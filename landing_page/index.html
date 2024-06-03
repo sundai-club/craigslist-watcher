@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Perfect Urban Bike</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        form {
+          background-color: #1c1c1f;
+        }
+
+        input {
+          color: #1c1c1f;
+        }
+
         .hero-background {
             background: url('https://your-image-url.com') no-repeat center center fixed;
             background-size: cover;
@@ -39,25 +47,25 @@
             z-index: 30;
         }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+  </head>
+  <body class="bg-gray-50 text-gray-800">
     <header class="hero-background">
         <h1 class="text-6xl text-shadow-strong mb-4">Find Your Perfect Urban Bike</h1>
         <h2 class="text-xl text-shadow-strong mb-8">Explore top brands and discover the best bikes for city living and commuting.</h2>
-        <form action="submit_form_url" method="post" class="w-full max-w-md bg-white bg-opacity-75 p-6 rounded-lg">
-            <h3 class="text-lg font-semibold mb-2">Why We Need Your Search URL</h3>
-            <p class="text-sm mb-4">We need the URL to monitor your search criteria and find the best matches for you.</p>
-            <label for="craigslist_url" class="block text-left text-sm font-semibold">How to Copy and Paste the URL:</label>
-            <ol class="list-decimal list-inside text-left text-sm mb-4">
-                <li>Go to Craigslist and perform your bike search.</li>
-                <li>Copy the URL from your browser's address bar.</li>
-                <li>Paste it into the field below.</li>
-            </ol>
-            <input type="url" name="craigslist_url" id="craigslist_url" placeholder="Enter Craigslist URL" class="px-4 py-2 border rounded mb-4 w-full">
-            <p class="text-sm mb-4">We need your email or phone number to send you updates on your saved search.</p>
-            <input type="text" name="contact" placeholder="Enter your email or phone number" class="px-4 py-2 border rounded mb-4 w-full">
-            <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">Submit</button>
-        </form>
+        <form id="submit_form" class="w-full max-w-md bg-opacity-75 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold mb-2">Why We Need Your Search URL</h3>
+          <p class="text-sm mb-4">We need the URL to monitor your search criteria and find the best matches for you.</p>
+          <label for="craigslist_url" class="block text-left text-sm font-semibold">How to Copy and Paste the URL:</label>
+          <ol class="list-decimal list-inside text-left text-sm mb-4">
+              <li>Go to Craigslist and perform your bike search.</li>
+              <li>Copy the URL from your browser's address bar.</li>
+              <li>Paste it into the field below.</li>
+          </ol>
+          <input type="url" name="craigslist_url" id="craigslist_url" placeholder="Enter Craigslist URL" class="px-4 py-2 border rounded mb-4 w-full">
+          <p class="text-sm mb-4">We need your email or phone number to send you updates on your saved search.</p>
+          <input type="text" name="contact" id="contact" placeholder="Enter your email or phone number" class="px-4 py-2 border rounded mb-4 w-full">
+          <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">Submit</button>
+      </form>
     </header>
 
     <nav class="bg-white py-4 shadow-md sticky top-0 z-20">
@@ -96,66 +104,63 @@
         </div>
     </section>
 
-    <section id="form" class="my-12 p-6 bg-gray-100">
-        <div class="text-center">
-            <h2 class="text-3xl">Find Your Bike</h2>
-            <p class="text-gray-500">Submit the details of your desired bike and budget, and we'll help you find the perfect match.</p>
-            <form action="submit_form_url" method="post" class="mt-8 w-full max-w-md mx-auto">
-                <input type="url" name="craigslist_url" placeholder="Enter Craigslist URL" class="px-4 py-2 border rounded mb-4 w-full">
-                <input type="text" name="contact" placeholder="Enter your email or phone number" class="px-4 py-2 border rounded mb-4 w-full">
-                <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">Submit</button>
-            </form>
-        </div>
-    </section>
-
-    <section id="testimonials" class="p-6 bg-white">
-        <div class="text-center">
-            <h2 class="text-3xl">What Our Riders Say</h2>
-            <p class="text-gray-500">Hear from city dwellers who found their perfect bike through us.</p>
-            <div class="flex justify-center mt-4">
-                <div class="bg-white rounded-lg shadow p-6 m-4">
-                    <p class="text-gray-600">"This service helped me find the ideal bike for my daily commute. Highly recommended!" - <b>Alex, Commuter</b></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer class="text-center py-6 bg-white text-sm text-gray-600">
-        <p>Follow us on [Social Media Links]</p>
+        <p>Follow us @ <a href="https://sundai.club/">Sundai Club</a></p>
         <p>© 2024 Urban Bikes. All rights reserved.</p>
     </footer>
 
     <div class="celebrations" id="celebrations">🎊🎉🎈</div>
     <div class="bicycle" id="bicycle">🚴‍♂️</div>
 
-    <div class="text-center mt-12 mb-4">
-        <pre>
-  _____ _             _   
- /  ___| |           | |  
- \ `--.| |_ _ __ ___ | |_ 
-  `--. \ __| '__/ _ \| __|
- /\__/ / |_| | | (_) | |_ 
- \____/ \__|_|  \___/ \__|
-        </pre>
-    </div>
-
     <script>
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.body.scrollHeight - windowHeight;
-            const scrollPercentage = scrollPosition / documentHeight;
+      document.getElementById('submit_form').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent the default form submission
 
-            const bicycle = document.getElementById('bicycle');
-            bicycle.style.top = `${scrollPercentage * 100}vh`;
+          // Get form values
+          const craigslistUrl = document.getElementById('craigslist_url').value;
+          const contact = document.getElementById('contact').value;
 
-            const celebrations = document.getElementById('celebrations');
-            if (scrollPercentage >= 0.9) {
-                celebrations.style.display = 'block';
-            } else {
-                celebrations.style.display = 'none';
-            }
-        });
+          // Prepare data to send
+          const data = {
+              url: craigslistUrl,
+              phone_number: contact
+          };
+
+          // Send data to the API endpoint
+          fetch('http://34.171.120.251:5000/add_item', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Success:', data);
+              // Handle success, e.g., show a success message to the user
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+              // Handle error, e.g., show an error message to the user
+          });
+      });
+
+      window.addEventListener('scroll', function() {
+          const scrollPosition = window.scrollY;
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.body.scrollHeight - windowHeight;
+          const scrollPercentage = scrollPosition / documentHeight;
+
+          const bicycle = document.getElementById('bicycle');
+          bicycle.style.top = `${scrollPercentage * 100}vh`;
+
+          const celebrations = document.getElementById('celebrations');
+          if (scrollPercentage >= 0.9) {
+              celebrations.style.display = 'block';
+          } else {
+              celebrations.style.display = 'none';
+          }
+      });
     </script>
-</body>
+  </body>
 </html>
