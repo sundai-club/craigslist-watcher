@@ -14,7 +14,7 @@ Craigslist Watcher is a Python-based web scraper that monitors Craigslist for ne
 -   Integrated with Twilio for messaging and Flask for web server capabilities.
 
 ## How to Run the Code
-### Step 1: Set up Twilio
+### Set up Twilio
 Create an account at [console.twilio.com](https://console.twilio.com/). Initially, you'll just be able to send messages to a single phone number. After verification, that expands. 
 Add the following to .env at the top level of the folder:
 - TWILIO_TOKEN=[your twilio api token]
