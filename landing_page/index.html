@@ -6,6 +6,16 @@
     <title>Find Your Perfect Urban Bike</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: red;
+        }
+        .success-message {
+            color: green;
+        }
+
         form {
           background-color: #1c1c1f;
         }
@@ -61,6 +71,10 @@
               <li>Copy the URL from your browser's address bar.</li>
               <li>Paste it into the field below.</li>
           </ol>
+
+          <p id="success_message" class="success-message hidden">Form submitted successfully!</p>
+          <p id="error_message" class="error-message hidden">An error occurred. Please try again.</p>
+
           <input type="url" name="craigslist_url" id="craigslist_url" placeholder="Enter Craigslist URL" class="px-4 py-2 border rounded mb-4 w-full">
           <p class="text-sm mb-4">We need your email or phone number to send you updates on your saved search.</p>
           <input type="text" name="contact" id="contact" placeholder="Enter your email or phone number" class="px-4 py-2 border rounded mb-4 w-full">
@@ -136,13 +150,27 @@
           })
           .then(response => response.json())
           .then(data => {
-              console.log('Success:', data);
-              // Handle success, e.g., show a success message to the user
-          })
-          .catch((error) => {
-              console.error('Error:', error);
-              // Handle error, e.g., show an error message to the user
-          });
+                if (data.error) {
+                    // Handle error returned from API
+                    document.getElementById('error_message').textContent = data.error;
+                    document.getElementById('error_message').classList.remove('hidden');
+                    document.getElementById('success_message').classList.add('hidden');
+                } else {
+                    // Handle success
+                    document.getElementById('success_message').classList.remove('hidden');
+                    document.getElementById('error_message').classList.add('hidden');
+                    // Clear form inputs
+                    document.getElementById('craigslist_url').value = '';
+                    document.getElementById('contact').value = '';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle network or other errors
+                document.getElementById('error_message').textContent = 'An error occurred. Please try again.';
+                document.getElementById('error_message').classList.remove('hidden');
+                document.getElementById('success_message').classList.add('hidden');
+            });
       });
 
       window.addEventListener('scroll', function() {
